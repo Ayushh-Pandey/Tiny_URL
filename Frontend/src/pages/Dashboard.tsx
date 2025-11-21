@@ -182,7 +182,7 @@ export default function Dashboard() {
             onClick={() => setShowForm((prev) => !prev)}
             className="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700"
           >
-            Create Link
+            Add
           </button>
 
         </div>
@@ -244,7 +244,7 @@ export default function Dashboard() {
         disabled={creating}
         className="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
       >
-        {creating ? "Creating..." : "Create"}
+        {creating ? "Creating..." : "Add"}
       </button>
       <button
         type="button"

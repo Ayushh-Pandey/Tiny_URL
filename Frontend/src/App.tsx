@@ -7,7 +7,7 @@ export default function App() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white shadow-sm">
         <div className="max-w-5xl mx-auto px-4 py-4">
-          <Link to="/" className="font-bold text-xl">tiny-url</Link>
+          <Link to="/" className="font-bold text-xl">Tiny-Url</Link>
         </div>
       </header>
 
