@@ -1,5 +1,5 @@
-import app from '../src/app';
-import { initializeDatabase } from '../src/db/init';
+import app from '../Backend/src/app';
+import { initializeDatabase } from '../Backend/src/db/init';
 
 let dbInitialized = false;
 

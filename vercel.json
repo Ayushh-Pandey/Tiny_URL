@@ -5,15 +5,15 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "/Backend/api/index.ts"
+      "destination": "/api"
     },
     {
       "source": "/:code",
-      "destination": "/Backend/api/index.ts"
+      "destination": "/api"
     }
   ],
   "functions": {
-    "Backend/api/index.ts": {
+    "api/index.ts": {
       "memory": 1024,
       "maxDuration": 10
     }
