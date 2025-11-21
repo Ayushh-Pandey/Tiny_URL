@@ -17,16 +17,23 @@ export const redirectHandler = async (req: Request, res: Response) => {
 
     const link = result.rows[0];
 
-    pool.query('INSERT INTO clicks (link_id, ip, user_agent, referrer) VALUES ($1,$2,$3,$4)', [
-      link.id,
-      req.ip,
-      req.headers['user-agent'] || null,
-      req.get('referer') || null
-    ]).catch(err => console.error('Click tracking error:', err));
+    // Track click and update count - MUST await in serverless environment
+    try {
+      await Promise.all([
+        pool.query('INSERT INTO clicks (link_id, ip, user_agent, referrer) VALUES ($1,$2,$3,$4)', [
+          link.id,
+          req.ip,
+          req.headers['user-agent'] || null,
+          req.get('referer') || null
+        ]),
+        pool.query('UPDATE links SET clicks = clicks + 1, last_clicked = now() WHERE id = $1', [link.id])
+      ]);
+    } catch (trackError) {
+      // Log error but still redirect - don't fail the redirect if tracking fails
+      console.error('Click tracking error:', trackError);
+    }
 
-    pool.query('UPDATE links SET clicks = clicks + 1, last_clicked = now() WHERE id = $1', [link.id])
-      .catch(err => console.error('Click count error:', err));
-
+    // Perform 302 redirect
     res.redirect(302, link.target_url);
   } catch (err) {
     console.error('Redirect error:', err);
