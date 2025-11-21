@@ -1,0 +1,21 @@
+{
+  "buildCommand": "cd Frontend && npm install && npm run build",
+  "outputDirectory": "Frontend/dist",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "/Backend/api/index.ts"
+    },
+    {
+      "source": "/:code",
+      "destination": "/Backend/api/index.ts"
+    }
+  ],
+  "functions": {
+    "Backend/api/index.ts": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  }
+}

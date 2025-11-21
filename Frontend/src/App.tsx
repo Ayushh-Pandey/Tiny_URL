@@ -17,8 +17,6 @@ export default function App() {
           <Route path="/code/:code" element={<CodeStats />} />
         </Routes>
       </main>
-
-      <footer className="text-center text-xs text-gray-500 py-6">Built with ❤️</footer>
     </div>
   );
 }
