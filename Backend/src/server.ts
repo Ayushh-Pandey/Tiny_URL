@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 import app from './app';
 import { initializeDatabase } from './db/init';
 

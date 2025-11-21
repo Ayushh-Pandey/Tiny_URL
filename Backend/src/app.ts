@@ -4,16 +4,6 @@ import helmet from 'helmet';
 import * as linksCtrl from './controllers/links';
 import * as redirectCtrl from './controllers/redirect';
 
-// In production (Vercel), environment variables are provided by the platform
-// In development, load from .env file
-if (process.env.NODE_ENV !== 'production') {
-  try {
-    require('dotenv').config();
-  } catch (err) {
-    // dotenv not available, that's okay in production
-  }
-}
-
 const app = express();
 app.use(helmet());
 app.use(cors());

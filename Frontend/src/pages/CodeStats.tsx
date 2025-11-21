@@ -15,12 +15,14 @@ export default function CodeStats() {
 
   function copyToClipboard(text: string) {
     navigator.clipboard.writeText(text);
+    alert('Copied');
   }
 
   if (loading) return <div>Loading...</div>;
   if (!data) return <div>Not found. <Link to="/">Back</Link></div>;
-
-  const shortUrl = `${window.location.origin}/${code}`;
+  const BASE_URL = import.meta.env.VITE_BASE_URL ||
+    (import.meta.env.MODE === 'production' ? window.location.origin : 'http://localhost:4000')
+  const shortUrl = `${BASE_URL}/${code}`;
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -40,7 +42,18 @@ export default function CodeStats() {
           <div className="flex items-start gap-2">
             <span className="font-medium min-w-[120px]">Short URL:</span>
             <div className="flex items-center gap-2">
-              <a className="text-blue-600 hover:underline break-all" href={shortUrl} target="_blank" rel="noreferrer">{shortUrl}</a>
+              <a className="text-blue-600 hover:underline break-all"
+                href={shortUrl}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.open(shortUrl, '_blank');
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 1000);
+                }}
+              >{shortUrl}</a>
               <button
                 onClick={() => copyToClipboard(shortUrl)}
                 className="p-1 text-gray-600 hover:bg-gray-100 rounded"

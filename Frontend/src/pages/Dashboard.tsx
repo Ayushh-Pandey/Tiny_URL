@@ -171,7 +171,7 @@ export default function Dashboard() {
 
         <div className="flex gap-3">
           <a
-            href="/healthz"
+            href={`${BASE_URL}/healthz`}
             target="_blank"
             className="px-4 py-2 border rounded text-sm hover:bg-gray-100"
           >
@@ -333,6 +333,13 @@ export default function Dashboard() {
                           target="_blank"
                           className="text-blue-600 font-medium hover:underline"
                           title={shortUrl}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            window.open(shortUrl, '_blank');
+                            setTimeout(() => {
+                              window.location.reload();
+                            }, 1000);
+                          }}
                         >
                           {l.slug}
                         </a>
