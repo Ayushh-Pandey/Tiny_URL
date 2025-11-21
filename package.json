@@ -8,6 +8,6 @@
   },
   "scripts": {
     "install:all": "cd Backend && npm install && cd ../Frontend && npm install",
-    "build": "cd Frontend && npm run build"
+    "build": "npm install && cd Frontend && npm run build"
   }
 }
