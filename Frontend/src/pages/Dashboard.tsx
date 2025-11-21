@@ -34,6 +34,10 @@ export default function Dashboard() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [createdLink, setCreatedLink] = useState<LinkItem | null>(null);
 
+  // Get the base URL for short links (use current domain in production)
+  const BASE_URL = import.meta.env.VITE_BASE_URL ||
+    (import.meta.env.MODE === 'production' ? window.location.origin : 'http://localhost:4000');
+
 
   useEffect(() => {
     loadLinks();
@@ -317,7 +321,7 @@ export default function Dashboard() {
             </thead>
             <tbody>
               {sorted.map((l) => {
-                const shortUrl = `${import.meta.env.VITE_BASE_URL || 'http://localhost:4000'}/${l.slug}`;
+                const shortUrl = `${BASE_URL}/${l.slug}`;
 
                 return (
                   <tr key={l.slug} className="border-b last:border-b-0 hover:bg-gray-50">
@@ -405,12 +409,12 @@ export default function Dashboard() {
 
               <div className="bg-gray-100 p-3 rounded mb-6 break-all">
                 <a
-                  href={`${import.meta.env.VITE_BASE_URL || 'http://localhost:4000'}/${createdLink.slug}`}
+                  href={`${BASE_URL}/${createdLink.slug}`}
                   target="_blank"
                   rel="noreferrer"
                   className="text-blue-600 hover:underline font-mono"
                 >
-                  {`${import.meta.env.VITE_BASE_URL || 'http://localhost:4000'}/${createdLink.slug}`}
+                  {`${BASE_URL}/${createdLink.slug}`}
                 </a>
               </div>
 
@@ -427,7 +431,7 @@ export default function Dashboard() {
 
                 <button
                   onClick={() => {
-                    const shortUrl = `${import.meta.env.VITE_BASE_URL || 'http://localhost:4000'}/${createdLink.slug}`;
+                    const shortUrl = `${BASE_URL}/${createdLink.slug}`;
                     navigator.clipboard.writeText(shortUrl);
                     alert("Link copied!");
                   }}
